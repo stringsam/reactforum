@@ -4,12 +4,12 @@ import {
 } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  CircularProgress,
   createMuiTheme,
   MuiThemeProvider,
 } from '@material-ui/core';
 
 import './App.css';
+import {LocalizationCtx, texts} from './localization'
 
 import { signOut, useLoggedInUser } from './utils/firebase';
 
@@ -38,12 +38,16 @@ const App: FC = () => {
   // Login state
   const user = useLoggedInUser();
 
+  const [localization, setLocalization] = useState<'cs' | 'en'>('cs');
+
   return (
-    <MuiThemeProvider theme={ourTheme}>
-      <Router>
-      {/*  App*/}
-      </Router>
-    </MuiThemeProvider>
+      <MuiThemeProvider theme={ourTheme}>
+        <LocalizationCtx.Provider value={{ localization, setLocalization }}>
+          <Router>
+            {/*  App*/}
+          </Router>
+        </LocalizationCtx.Provider>
+      </MuiThemeProvider>
   );
 };
 
