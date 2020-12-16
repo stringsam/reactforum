@@ -22,6 +22,13 @@ const db = firebase.firestore();
 // Simplified user type for referencing users
 type User = Pick<firebase.User, 'uid' | 'email'>;
 
+export type Post= {
+  by: User;
+  content: string;
+}
+
+export const reviewsCollection = db.collection('posts') as firebase.firestore.CollectionReference<Post>;
+
 // Helper to get current time in Timestamp
 export const timestampNow = firebase.firestore.Timestamp.now;
 
