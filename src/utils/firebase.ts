@@ -4,13 +4,13 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCNHtXwkyVdIH79e0yOEl5virCZi0d5zJA",
-  authDomain: "muni-6e154.firebaseapp.com",
-  databaseURL: "https://muni-6e154.firebaseio.com",
-  projectId: "muni-6e154",
-  storageBucket: "muni-6e154.appspot.com",
-  messagingSenderId: "1067951646840",
-  appId: "1:1067951646840:web:87048db19b7ee2d9a2258d"
+  apiKey: "AIzaSyDGiIs2CVTVqoX7_UEcfl9lMX1joLMGNoA",
+  authDomain: "discussion-12e9b.firebaseapp.com",
+  databaseURL: "https://discussion-12e9b.firebaseio.com",
+  projectId: "discussion-12e9b",
+  storageBucket: "discussion-12e9b.appspot.com",
+  messagingSenderId: "456545459698",
+  appId: "1:456545459698:web:65cad01ee3aa467c999f6b"
 };
 
 // Initialize Firebase
@@ -22,12 +22,14 @@ const db = firebase.firestore();
 // Simplified user type for referencing users
 type User = Pick<firebase.User, 'uid' | 'email'>;
 
-export type Post= {
+export type Post = {
+  id?: string;
   by: User;
   content: string;
+  date: firebase.firestore.Timestamp
 }
 
-export const reviewsCollection = db.collection('posts') as firebase.firestore.CollectionReference<Post>;
+export const postsCollection = db.collection('posts') as firebase.firestore.CollectionReference<Post>;
 
 // Helper to get current time in Timestamp
 export const timestampNow = firebase.firestore.Timestamp.now;
