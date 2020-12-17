@@ -6,7 +6,6 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,7 +17,7 @@ import {
 } from '@material-ui/core';
 
 import './App.css';
-import {LocalizationCtx, texts} from './localization'
+import {LocalizationCtx} from './localization'
 
 import { signOut, useLoggedInUser } from './utils/firebase';
 import Container from '@material-ui/core/Container/Container';
@@ -40,15 +39,7 @@ const ourTheme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles(theme => ({
-  toolbar: { display: 'flex', justifyContent: 'space-between' },
-  menuButton: { marginRight: theme.spacing(2) },
-  link: { textDecoration: 'none' },
-}));
-
 const App: FC = () => {
-  // Styles
-  const classes = useStyles();
 
   // Login state
   const user = useLoggedInUser();
