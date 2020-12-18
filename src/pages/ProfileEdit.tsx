@@ -9,7 +9,7 @@ const Profile: FC = () => {
     console.log(user)
 
     return(
-        user ? <ProfileCard {...user}/> : null
+        user ? <ProfileEdit {...user}/> : null
     )
 } 
 
