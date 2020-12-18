@@ -1,13 +1,15 @@
 import React, { FC } from "react";
 import ProfileCard from "../components/ProfileCard";
-import { useDetailUser } from "../utils/firebase";
+import ProfileEdit from "../components/ProfileEdit";
+import { useDetailUser, useLoggedInUser } from "../utils/firebase";
 
 const Profile: FC = () => {
     
     const user = useDetailUser()
+    console.log(user)
 
     return(
-        user ? <ProfileCard {...user}/> : null
+        user ? <ProfileEdit {...user}/> : null
     )
 } 
 

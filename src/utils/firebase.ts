@@ -20,7 +20,18 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // Simplified user type for referencing users
-type User = Pick<firebase.User, 'uid' | 'email'>;
+export type User = Pick<firebase.User, 'uid'| 'email'>
+
+export type UserDetail = {
+  email: string,
+  photoUrl?: string,
+  phoneNumber?: string,
+  sex?: boolean,
+  signuature?: string,
+  nickname?: string
+  }
+
+export const usersCollection = db.collection('users') as firebase.firestore.CollectionReference<UserDetail>;
 
 export type Post = {
   id?: string;
@@ -50,11 +61,54 @@ export const useLoggedInUser = () => {
   return user;
 };
 
-// Sign up handler
-export const signUp = (email: string, password: string) =>
-  firebase.auth().createUserWithEmailAndPassword(email, password);
 
-// Sign in handler
+export const useDetailUser = () => {
+  const [userState, setUser] = useState<UserDetail | null>();
+  const user = useLoggedInUser()
+
+  useEffect(() => {
+    user && (
+      usersCollection.doc(user.uid).get()
+    ).then(res => {
+      const ud = res.data()
+      console.log(ud)
+      setUser(ud)
+    }).catch(e => console.error(e))
+  }, [user])
+
+  return userState;
+  // Hold user info in state
+ /* const [user, setUser] = useState<User | null>();
+  const [error, setError] = useState<string>();
+
+  // Setup onAuthStateChanged once when component is mounted
+  useEffect(() => {
+      const unsubscribe = firebase.auth().onAuthStateChanged(async (u) => {
+      const userDetails = u && await usersCollection.where("uid", "==", u?.uid).get()
+      setUser(userDetails?.docs?.[0]?.data() || null)
+    })
+
+    // Call unsubscribe in the cleanup of the hook
+    return () => unsubscribe();
+  }, []);
+  */
+};
+
+// Sign up handler
+export const signUp = async (email: string, password: string) => {
+  await firebase.auth().createUserWithEmailAndPassword(email, password)
+  const u = firebase.auth().currentUser;
+  console.log(u)
+  usersCollection.doc(u?.uid).set({
+      email: email,
+      phoneNumber: "",
+      sex: false,
+      nickname: "",
+      photoUrl: ""
+    })
+}
+
+  // Sign in handler
 export const signIn = (email: string, password: string) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
 

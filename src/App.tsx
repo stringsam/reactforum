@@ -26,6 +26,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Discussion from './pages/Discussion';
 import About from './pages/About';
+import ProfileEdit from './components/ProfileEdit';
 
 // MUI theme override
 const ourTheme = createMuiTheme({
@@ -94,6 +95,7 @@ const App: FC = () => {
                 <Route path='/about' exact component={About} />
                 <Route path='/profile' exact component={Profile} />
                 <Route path='/discussion' exact component={Discussion} />
+                <Route path='/profileEdit' exact component={ProfileEdit} />
               </Switch>
             )}
           </Container>
