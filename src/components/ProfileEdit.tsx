@@ -3,9 +3,8 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import { UserDetail, usersCollection } from "../utils/firebase";
-import { Button, CardActionArea, FormControl, FormControlLabel, FormLabel, RadioGroup, TextField } from "@material-ui/core";
+import { UserDetail } from "../utils/firebase";
+import { CardActionArea, FormControl, FormControlLabel, FormLabel, RadioGroup, TextField } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileEdit: FC<UserDetail> = ({email, photoUrl, phoneNumber, sex, signuature, nickname}) => {
   const classes = useStyles();
-  const theme = useTheme();
+  useTheme();
 
   const [value, setValue] = useState('female');
 
