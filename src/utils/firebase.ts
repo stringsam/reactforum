@@ -49,15 +49,14 @@ export const useDetailUser = () => {
 
   useEffect(() => {
     user && (
-      usersCollection.doc(user.uid).get()
-    ).then(res => {
-      const ud = res.data()
-      console.log(ud)
-      setUser(ud)
-    }).catch(e => console.error(e))
+      usersCollection.doc(user.uid).onSnapshot(
+        snapshot => {
+          const ud = snapshot.data()
+          setUser(ud)
+            }));
   }, [user])
 
-  return userState;
+  return userState ? userState : {} as UserDetail;
 };
 
 // Sign up handler

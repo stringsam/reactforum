@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -19,7 +19,7 @@ import {
 import './App.css';
 import {LocalizationCtx} from './localization'
 
-import { signOut, useLoggedInUser } from './utils/firebase';
+import { signOut, useDetailUser, useLoggedInUser } from './utils/firebase';
 import Container from '@material-ui/core/Container/Container';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -27,6 +27,7 @@ import Profile from './pages/Profile';
 import Discussion from './pages/Discussion';
 import About from './pages/About';
 import ProfileEdit from './components/ProfileEdit';
+import { ProfileCtx } from './components/ProfileCtx';
 
 // MUI theme override
 const ourTheme = createMuiTheme({
@@ -45,11 +46,20 @@ const App: FC = () => {
   // Login state
   const user = useLoggedInUser();
 
+  const userDetail = useDetailUser();
+  userDetail.uid = user?.uid
+
   const [localization, setLocalization] = useState<'cs' | 'en'>('cs');
+  const [profile, setProfile] = useState(userDetail);
+
+  useEffect(() => {
+    setProfile(userDetail)
+  }, [user, userDetail])
 
   return (
       <MuiThemeProvider theme={ourTheme}>
         <LocalizationCtx.Provider value={{ localization, setLocalization }}>
+          <ProfileCtx.Provider value={{profile, setProfile}}>
           <Router>
             <AppBar>
               <Toolbar>
@@ -101,6 +111,7 @@ const App: FC = () => {
           </Container>
             </main>
           </Router>
+          </ProfileCtx.Provider>
         </LocalizationCtx.Provider>
       </MuiThemeProvider>
 
