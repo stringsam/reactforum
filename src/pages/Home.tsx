@@ -15,7 +15,7 @@ const Home: FC = () => {
 
     useEffect(() => {
         // Call .onSnapshot() to listen to changes
-        const unsubscribe = threadsCollection.orderBy('date').onSnapshot(
+        const unsubscribe = threadsCollection.orderBy('date', 'desc').onSnapshot(
             snapshot => {
                 // Access .docs property of snapshot
                 setThreads(snapshot.docs.map((doc) => {
@@ -42,6 +42,10 @@ const Home: FC = () => {
 
     const handleSubmit = () => {
 
+        if (!title.trim()){
+            return;
+        }
+
         const post: Post = {
             by: {
                 uid: user?.uid ?? '',
@@ -66,48 +70,49 @@ const Home: FC = () => {
 
     return (
     <Grid container wrap="wrap" spacing={3}>
-    {threads.map((r, i) => (
+        <Grid xs={12} item>
+            <Card>
+                <CardContent>
+                    <Typography variant="h4" gutterBottom>
+                        Create thread
+                    </Typography>
+                    <TextField
+                        label='Title'
+                        name="title"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
+                    />
+                    <TextField
+                        label='Text'
+                        name="text"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        value={text}
+                        onChange={e => setText(e.target.value)}
+                    />
+                </CardContent>
+                <CardActions>
+                    <Button
+                        variant="text"
+                        size="large"
+                        color="primary"
+                        onClick={handleSubmit}
+                    >
+                        Submit
+                    </Button>
+                </CardActions>
+            </Card>
+        </Grid>
+
+        {threads.map((r, i) => (
         <Grid key={i} xs={12} item>
             <ThreadComponent thread={r} />
         </Grid>
     ))}
-    <Grid xs={12} item>
-        <Card>
-            <CardContent>
-                <Typography variant="h4" gutterBottom>
-                    Create thread
-                </Typography>
-                <TextField
-                    label='Title'
-                    name="title"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    value={title}
-                    onChange={e => setTitle(e.target.value)}
-                />
-                <TextField
-                    label='Text'
-                    name="text"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    value={text}
-                    onChange={e => setText(e.target.value)}
-                />
-            </CardContent>
-            <CardActions>
-                <Button
-                    variant="text"
-                    size="large"
-                    color="primary"
-                    onClick={handleSubmit}
-                >
-                    Submit
-                </Button>
-            </CardActions>
-        </Card>
-    </Grid>
 </Grid>
 )};
 

@@ -20,11 +20,6 @@ const Discussion: FC = () => {
 
 
     useEffect(() => {
-        // Call .onSnapshot() to listen to changes
-
-        threadsCollection.doc(ref).get().then(doc => {
-            setPost(doc.data()?.posts);
-        })
 
         const unsubscribe = threadsCollection.doc(ref).collection('posts').orderBy('date').onSnapshot(
             snapshot => {
@@ -43,13 +38,18 @@ const Discussion: FC = () => {
 
         // Call unsubscribe in the cleanup of the hook
         return () => unsubscribe();
-    });
+    }, [ref]);
 
     const [text, setText] = useState('');
 
     const user = useLoggedInUser();
 
     const handleSubmit = async () => {
+
+        if (!text.trim()){
+            return;
+        }
+
         try {
             await threadsCollection.doc(ref).collection('posts').add({
                 by: {

@@ -33,11 +33,11 @@ export const Post: FC<Props> = ({post, threadId}) => {
         (
             <Card className={classes.card}>
                 <CardContent>
-                    <Typography variant="h5" color="textSecondary">
+                    <Typography variant="subtitle1" color="textSecondary">
                         {post.by.email}
                     </Typography>
-                    {post.content && <Typography>{post.content}</Typography>}
-                    <Typography variant="h6" color="textSecondary">
+                    {post.content && <Typography variant={"h6"}>{post.content}</Typography>}
+                    <Typography variant="subtitle2" color="textSecondary">
                         {post.date.toDate().toDateString()}
                     </Typography>
                 </CardContent>
