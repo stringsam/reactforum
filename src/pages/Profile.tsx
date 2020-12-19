@@ -1,26 +1,27 @@
 import Grid from "@material-ui/core/Grid";
 import React, { FC, useContext, useEffect, useState } from "react";
-import { Post as PostComponent } from "../components/Post";
 import ProfileCard from "../components/ProfileCard";
 import { ProfileCtx } from "../components/ProfileCtx";
-import { Post, postsCollection} from "../utils/firebase";
+import { threadsCollection } from "../utils/firebase";
+import {Post, Thread} from "../utils/types";
+import {Thread as ThreadComponent} from "../components/Thread";
 
 const Profile: FC = () => {
     
-    const [posts, setPost] = useState<Post[]>([]);
+    const [threads, setThread] = useState<Thread[]>([]);
     
     const profileCtx = useContext(ProfileCtx)
 
     useEffect(() => {
         // Call .onSnapshot() to listen to changes
-        const unsubscribe = postsCollection.where("by.uid", "==", profileCtx.profile?.uid || '').orderBy('date', 'desc').onSnapshot(
+        const unsubscribe = threadsCollection.where("by.uid", "==", profileCtx.profile?.uid || '').orderBy('date', 'desc').onSnapshot(
             snapshot => {
                 // Access .docs property of snapshot
-                setPost(snapshot.docs.map((doc) => {
+                setThread(snapshot.docs.map((doc) => {
                     return {
                         id: doc.id,
                         by: doc.data().by,
-                        content: doc.data().content,
+                        title: doc.data().title,
                         date: doc.data().date
                     }
                 }));
@@ -37,9 +38,9 @@ const Profile: FC = () => {
             <Grid xs={12} item>
                 <ProfileCard/>
             </Grid>
-            {posts.map((r, i) => (
+            {threads.map((r, i) => (
                 <Grid key={i} xs={12} item>
-                    <PostComponent post={r} />
+                    <ThreadComponent thread={r} />
                 </Grid>
             ))}
         </Grid>

@@ -3,11 +3,11 @@ import firebase from "firebase";
 export type User = Pick<firebase.User, 'uid'| 'email'>
 
 export type UserDetail = {
-    email: string,
+    email?: string,
     photoUrl?: string,
     phoneNumber?: string,
     sex?: boolean,
-    signuature?: string,
+    uid?: string,
     nickname?: string,
 }
 
