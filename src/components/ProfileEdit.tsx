@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,6 +9,7 @@ import Radio from "@material-ui/core/Radio";
 import { useHistory } from "react-router-dom";
 import firebase from "firebase";
 import FileUploader from "react-firebase-file-uploader";
+import { ProfileCtx } from "./ProfileCtx";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,15 +38,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProfileEdit: FC<UserDetail> = ({email, photoUrl, phoneNumber, sex, signuature, nickname}) => {
+const ProfileEdit: FC = () => {
   const classes = useStyles();
   const history = useHistory();
   useTheme();
 
+  const profileCtx = useContext(ProfileCtx)
+
   const user = useLoggedInUser()
 
-  const [value, setValue] = useState('female');
-  const [imageUrl, setImage] = useState<string>();
+  const [nick, setNick] = useState(profileCtx.profile?.nickname || '');
+  const [phone, setPhone] = useState(profileCtx.profile?.phoneNumber || '');
+  const [sex, setSex] = useState(profileCtx.profile?.sex ? 'female' : 'male');
+  const [imageUrl, setImage] = useState(profileCtx.profile?.photoUrl || '');
 
   const handleUploadError = (error: any) => {
     console.error(error);
@@ -57,26 +62,25 @@ const ProfileEdit: FC<UserDetail> = ({email, photoUrl, phoneNumber, sex, signuat
       .ref(`images/${filename}`)
       .getDownloadURL()
       .then(url => {
-        console.log(url)
         setImage(url)
       });
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    setSex((event.target as HTMLInputElement).value);
   };
 
-  const [phone, setPhone] = useState('');
-  const [nick, setNick] = useState('');
   const handleSubmit = async () => {
     try {
-        await usersCollection.doc(user?.uid).update({phoneNumber:phone, nickname:nick, sex: value === "female" ? true : false, photoUrl: imageUrl })
+        await usersCollection.doc(user?.uid).update({phoneNumber: phone, nickname: nick, sex: sex === "female" ? true : false, photoUrl: imageUrl? imageUrl : "" })
         history.push('/profile')
         // After awaiting previous call we can redirect back to /about page
     } catch (err) {
         console.log(err.what)
     }
   }
+
+  console.log(profileCtx.profile)
 
   return (
     <Card className={classes.root}>
@@ -98,22 +102,18 @@ const ProfileEdit: FC<UserDetail> = ({email, photoUrl, phoneNumber, sex, signuat
       <div className={classes.details}>
         <CardContent className={classes.content}>
             <TextField
-                id="nickName-input"
-                label="nickName"
-                type="nickName"
-                value={nick}
-                onChange={e => setNick(e.target.value)}
-                />
+              label="Nickname"
+              value={nick}
+              onChange={e => setNick(e.target.value)}
+            />
             <TextField
-                id="phoneNumber-input"
-                label="phone"
-                type="phoneNumber"
+                label="Phone"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
-                />
+            />
             <FormControl component="fieldset">
                 <FormLabel component="legend">Sex</FormLabel>
-                    <RadioGroup aria-label="sex" name="sex1" value={value} onChange={handleChange}>
+                    <RadioGroup aria-label="sex" name="sex1" value={sex} onChange={handleChange}>
                         <FormControlLabel value="female" control={<Radio />} label="Female" />
                         <FormControlLabel value="male" control={<Radio />} label="Male" />
                     </RadioGroup>

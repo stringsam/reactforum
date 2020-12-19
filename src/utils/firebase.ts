@@ -23,11 +23,11 @@ const db = firebase.firestore();
 export type User = Pick<firebase.User, 'uid'| 'email'>
 
 export type UserDetail = {
-  email: string,
+  email?: string,
   photoUrl?: string,
   phoneNumber?: string,
   sex?: boolean,
-  signuature?: string,
+  uid?: string,
   nickname?: string
   }
 
@@ -68,29 +68,14 @@ export const useDetailUser = () => {
 
   useEffect(() => {
     user && (
-      usersCollection.doc(user.uid).get()
-    ).then(res => {
-      const ud = res.data()
-      setUser(ud)
-    }).catch(e => console.error(e))
+      usersCollection.doc(user.uid).onSnapshot(
+        snapshot => {
+          const ud = snapshot.data()
+          setUser(ud)
+            }));
   }, [user])
 
-  return userState;
-  // Hold user info in state
- /* const [user, setUser] = useState<User | null>();
-  const [error, setError] = useState<string>();
-
-  // Setup onAuthStateChanged once when component is mounted
-  useEffect(() => {
-      const unsubscribe = firebase.auth().onAuthStateChanged(async (u) => {
-      const userDetails = u && await usersCollection.where("uid", "==", u?.uid).get()
-      setUser(userDetails?.docs?.[0]?.data() || null)
-    })
-
-    // Call unsubscribe in the cleanup of the hook
-    return () => unsubscribe();
-  }, []);
-  */
+  return userState ? userState : {} as UserDetail;
 };
 
 // Sign up handler

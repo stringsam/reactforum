@@ -1,18 +1,19 @@
 import Grid from "@material-ui/core/Grid";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { Post as PostComponent } from "../components/Post";
 import ProfileCard from "../components/ProfileCard";
-import { Post, postsCollection, useDetailUser, useLoggedInUser } from "../utils/firebase";
+import { ProfileCtx } from "../components/ProfileCtx";
+import { Post, postsCollection, useLoggedInUser } from "../utils/firebase";
 
 const Profile: FC = () => {
     
     const [posts, setPost] = useState<Post[]>([]);
     
-    const user = useLoggedInUser()
+    const profileCtx = useContext(ProfileCtx)
 
     useEffect(() => {
         // Call .onSnapshot() to listen to changes
-        const unsubscribe = postsCollection.where("by.uid", "==", user?.uid || '').orderBy('date', 'desc').onSnapshot(
+        const unsubscribe = postsCollection.where("by.uid", "==", profileCtx.profile?.uid || '').orderBy('date', 'desc').onSnapshot(
             snapshot => {
                 // Access .docs property of snapshot
                 setPost(snapshot.docs.map((doc) => {
@@ -29,14 +30,12 @@ const Profile: FC = () => {
 
         // Call unsubscribe in the cleanup of the hook
         return () => unsubscribe?.();
-    }, [user]);
-    
-    const userDetail = useDetailUser()
+    }, [profileCtx])
 
     return(
         <Grid container wrap="wrap" spacing={3}>
             <Grid xs={12} item>
-            {userDetail ? <ProfileCard {...userDetail}/> : null}
+                <ProfileCard/>
             </Grid>
             {posts.map((r, i) => (
                 <Grid key={i} xs={12} item>

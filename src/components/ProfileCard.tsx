@@ -1,11 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { UserDetail } from "../utils/firebase";
-import { Button, CardActions, Link } from "@material-ui/core";
+import { Button, CardActions } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { ProfileCtx } from "./ProfileCtx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,34 +35,34 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProfileCard: FC<UserDetail> = ({ email, photoUrl, phoneNumber, sex, signuature, nickname}) => {
+const ProfileCard: FC = () => {
   const classes = useStyles();
   useTheme();
-
+  const profileCtx = useContext(ProfileCtx)
 
   return (
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
-        image={photoUrl}
+        image={profileCtx.profile?.photoUrl}
       />
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">
-            {nickname}
+            {profileCtx.profile?.nickname}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {email}
+            {profileCtx.profile?.email}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {phoneNumber}
+            {profileCtx.profile?.phoneNumber}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {sex? "Female" : "Man"}
+            {profileCtx.profile?.sex ? "Female" : "Male"}
           </Typography>
         </CardContent>
         <CardActions>
-          <Link href='/profileEdit' component={Button}>
+          <Link to='/profileEdit'>
               Edit profile
           </Link>
         </CardActions>
