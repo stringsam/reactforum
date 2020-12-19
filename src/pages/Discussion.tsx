@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react"
 import {Grid} from "@material-ui/core";
-import {Post, postsCollection, timestampNow, useLoggedInUser} from "../utils/firebase";
+import {threadsCollection, timestampNow, useLoggedInUser} from "../utils/firebase";
 import {Post as PostComponent} from '../components/Post';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,15 +8,26 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import {Post} from '../utils/types';
+import {useParams} from "react-router-dom";
+import {threadId} from "worker_threads";
 
 
 const Discussion: FC = () => {
 
-    const [posts, setPost] = useState<Post[]>([]);
+    const [posts, setPost] = useState<Post[] | undefined>([]);
+
+    const { ref }: { ref: string } = useParams();
+
 
     useEffect(() => {
         // Call .onSnapshot() to listen to changes
-        const unsubscribe = postsCollection.orderBy('date').onSnapshot(
+
+        threadsCollection.doc(ref).get().then(doc => {
+            setPost(doc.data()?.posts);
+        })
+
+        const unsubscribe = threadsCollection.doc(ref).collection('posts').orderBy('date').onSnapshot(
             snapshot => {
                 // Access .docs property of snapshot
                 setPost(snapshot.docs.map((doc) => {
@@ -24,7 +35,7 @@ const Discussion: FC = () => {
                         id: doc.id,
                         by: doc.data().by,
                         content: doc.data().content,
-                        date: doc.data().date
+                        date: doc.data().date,
                     }
                 }));
             },
@@ -41,13 +52,13 @@ const Discussion: FC = () => {
 
     const handleSubmit = async () => {
         try {
-            await postsCollection.add({
+            await threadsCollection.doc(ref).collection('posts').add({
                 by: {
                     uid: user?.uid ?? '',
                     email: user?.email ?? '',
                 },
                 content: text,
-                date: timestampNow()
+                date: timestampNow(),
             });
             // After awaiting previous call we can redirect back to /about page
         } catch (err) {
@@ -57,9 +68,9 @@ const Discussion: FC = () => {
 
     return (
         <Grid container wrap="wrap" spacing={3}>
-            {posts.map((r, i) => (
+            {posts?.map((r, i) => (
                 <Grid key={i} xs={12} item>
-                    <PostComponent post={r} />
+                    <PostComponent post={r} threadId={ref} />
                 </Grid>
             ))}
             <Grid xs={12} item>

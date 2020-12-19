@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import { UserDetail } from "../utils/firebase";
+import { UserDetail } from "../utils/types";
 import { Button, CardActions, Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({

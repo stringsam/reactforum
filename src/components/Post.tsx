@@ -5,10 +5,12 @@ import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from '@material-ui/icons/Delete';
-import {Post as PostType, postsCollection, useLoggedInUser} from '../utils/firebase';
+import {threadsCollection, useLoggedInUser} from '../utils/firebase';
+import {Post as PostType} from '../utils/types';
 
 type Props = {
     post: PostType,
+    threadId: string,
 }
 
 const useStyles = makeStyles(theme => ({
@@ -23,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     link: { textDecoration: 'none' },
 }));
 
-export const Post: FC<Props> = ({post}) => {
+export const Post: FC<Props> = ({post, threadId}) => {
     const classes = useStyles();
     const loggedUser = useLoggedInUser();
 
@@ -42,7 +44,7 @@ export const Post: FC<Props> = ({post}) => {
                 <CardActions>
                     {post.by.email === loggedUser?.email && <IconButton
                         title='delete'
-                        onClick={() => postsCollection.doc(post.id).delete()}>
+                        onClick={() => threadsCollection.doc(threadId).collection('posts').doc(post.id).delete()}>
                         <DeleteIcon/>
                     </IconButton>}
                 </CardActions>
