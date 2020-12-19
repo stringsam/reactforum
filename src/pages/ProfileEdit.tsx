@@ -6,7 +6,6 @@ import { useDetailUser, useLoggedInUser } from "../utils/firebase";
 const Profile: FC = () => {
     
     const user = useDetailUser()
-    console.log(user)
 
     return(
         user ? <ProfileEdit {...user}/> : null

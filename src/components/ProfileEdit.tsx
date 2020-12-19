@@ -3,9 +3,13 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import { UserDetail } from "../utils/firebase";
+import { useLoggedInUser, UserDetail, usersCollection } from "../utils/firebase";
 import { CardActionArea, FormControl, FormControlLabel, FormLabel, RadioGroup, TextField } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
+import { useHistory } from "react-router-dom";
+import firebase from "firebase";
+import FileUploader from "react-firebase-file-uploader";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,9 +39,28 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileEdit: FC<UserDetail> = ({email, photoUrl, phoneNumber, sex, signuature, nickname}) => {
   const classes = useStyles();
+  const history = useHistory();
   useTheme();
 
+  const user = useLoggedInUser()
+
   const [value, setValue] = useState('female');
+  const [imageUrl, setImage] = useState<string>();
+
+  const handleUploadError = (error: any) => {
+    console.error(error);
+  };
+  const handleUploadSuccess = async (promise: any) => {
+    const filename = await promise
+    firebase
+      .storage()
+      .ref(`images/${filename}`)
+      .getDownloadURL()
+      .then(url => {
+        console.log(url)
+        setImage(url)
+      });
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -45,25 +68,37 @@ const ProfileEdit: FC<UserDetail> = ({email, photoUrl, phoneNumber, sex, signuat
 
   const [phone, setPhone] = useState('');
   const [nick, setNick] = useState('');
-  /*const handleSubmit = async () => {
+  const handleSubmit = async () => {
     try {
-        await usersCollection.doc(uid).update({phoneNumber:phone, nickName:nick })
+        await usersCollection.doc(user?.uid).update({phoneNumber:phone, nickname:nick, sex: value === "female" ? true : false, photoUrl: imageUrl })
+        history.push('/profile')
         // After awaiting previous call we can redirect back to /about page
     } catch (err) {
         console.log(err.what)
-    }*/
-//};
+    }
+  }
 
   return (
     <Card className={classes.root}>
-      <CardMedia
-        className={classes.cover}
-        image={photoUrl}
-      />
+      {imageUrl
+        ? <CardMedia
+            className={classes.cover}
+            image={imageUrl}
+            title="Profile image preview"
+          />
+        : <FileUploader
+            accept="image/*"
+            name="avatar"
+            randomizeFilename
+            storageRef={firebase.storage().ref("images")}
+            onUploadError={handleUploadError}
+            onUploadSuccess={handleUploadSuccess}
+          />
+      }
       <div className={classes.details}>
         <CardContent className={classes.content}>
             <TextField
-                id="nicName-input"
+                id="nickName-input"
                 label="nickName"
                 type="nickName"
                 value={nick}
@@ -84,8 +119,8 @@ const ProfileEdit: FC<UserDetail> = ({email, photoUrl, phoneNumber, sex, signuat
                     </RadioGroup>
             </FormControl>
         </CardContent>
-        <CardActionArea>
-        {/*  <Button onClick={() =>handleSubmit}>Save</Button>*/} 
+        <CardActionArea onClick={() =>handleSubmit()}>
+          Save
         </CardActionArea>
       </div>
     </Card>

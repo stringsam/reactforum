@@ -71,7 +71,6 @@ export const useDetailUser = () => {
       usersCollection.doc(user.uid).get()
     ).then(res => {
       const ud = res.data()
-      console.log(ud)
       setUser(ud)
     }).catch(e => console.error(e))
   }, [user])
