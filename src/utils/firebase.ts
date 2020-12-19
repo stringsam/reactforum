@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import {Post, Thread, UserDetail} from "./types";
+import {Thread, UserDetail} from "./types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDGiIs2CVTVqoX7_UEcfl9lMX1joLMGNoA",
