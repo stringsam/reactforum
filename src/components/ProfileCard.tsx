@@ -4,8 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import { UserDetail } from "../utils/firebase";
-import { Button, CardActions } from "@material-ui/core";
+import {CardActions } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { ProfileCtx } from "./ProfileCtx";
 

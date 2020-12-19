@@ -1,9 +1,9 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useContext,  useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import { useLoggedInUser, UserDetail, usersCollection } from "../utils/firebase";
+import { useLoggedInUser, usersCollection } from "../utils/firebase";
 import { CardActionArea, FormControl, FormControlLabel, FormLabel, RadioGroup, TextField } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import { useHistory } from "react-router-dom";

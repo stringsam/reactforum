@@ -3,7 +3,7 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import { Post as PostComponent } from "../components/Post";
 import ProfileCard from "../components/ProfileCard";
 import { ProfileCtx } from "../components/ProfileCtx";
-import { Post, postsCollection, useLoggedInUser } from "../utils/firebase";
+import { Post, postsCollection} from "../utils/firebase";
 
 const Profile: FC = () => {
     
