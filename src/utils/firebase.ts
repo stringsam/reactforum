@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import {Thread, UserDetail} from "./types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDGiIs2CVTVqoX7_UEcfl9lMX1joLMGNoA",
@@ -19,28 +20,8 @@ firebase.initializeApp(firebaseConfig);
 // Firestore database
 const db = firebase.firestore();
 
-// Simplified user type for referencing users
-export type User = Pick<firebase.User, 'uid'| 'email'>
-
-export type UserDetail = {
-  email?: string,
-  photoUrl?: string,
-  phoneNumber?: string,
-  sex?: boolean,
-  uid?: string,
-  nickname?: string
-  }
-
 export const usersCollection = db.collection('users') as firebase.firestore.CollectionReference<UserDetail>;
-
-export type Post = {
-  id?: string;
-  by: User;
-  content: string;
-  date: firebase.firestore.Timestamp
-}
-
-export const postsCollection = db.collection('posts') as firebase.firestore.CollectionReference<Post>;
+export const threadsCollection = db.collection('threads') as firebase.firestore.CollectionReference<Thread>;
 
 // Helper to get current time in Timestamp
 export const timestampNow = firebase.firestore.Timestamp.now;
@@ -82,7 +63,6 @@ export const useDetailUser = () => {
 export const signUp = async (email: string, password: string) => {
   await firebase.auth().createUserWithEmailAndPassword(email, password)
   const u = firebase.auth().currentUser;
-  console.log(u)
   usersCollection.doc(u?.uid).set({
       email: email,
       phoneNumber: "",

@@ -104,7 +104,7 @@ const App: FC = () => {
                 <Route path='/login' exact component={Login} />
                 <Route path='/about' exact component={About} />
                 <Route path='/profile' exact component={Profile} />
-                <Route path='/discussion' exact component={Discussion} />
+                <Route path='/discussion/:ref' exact component={Discussion} />
                 <Route path='/profileEdit' exact component={ProfileEdit} />
               </Switch>
             )}
