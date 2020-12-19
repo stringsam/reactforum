@@ -3,7 +3,7 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import ProfileCard from "../components/ProfileCard";
 import { ProfileCtx } from "../components/ProfileCtx";
 import { threadsCollection } from "../utils/firebase";
-import {Post, Thread} from "../utils/types";
+import {Thread} from "../utils/types";
 import {Thread as ThreadComponent} from "../components/Thread";
 
 const Profile: FC = () => {

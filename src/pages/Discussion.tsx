@@ -10,7 +10,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {Post} from '../utils/types';
 import {useParams} from "react-router-dom";
-import {threadId} from "worker_threads";
 
 
 const Discussion: FC = () => {
@@ -44,7 +43,7 @@ const Discussion: FC = () => {
 
         // Call unsubscribe in the cleanup of the hook
         return () => unsubscribe();
-    }, []);
+    });
 
     const [text, setText] = useState('');
 

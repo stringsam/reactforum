@@ -1,6 +1,6 @@
 import {Thread as ThreadType} from '../utils/types';
 import React, {FC} from 'react';
-import {Card, Grid} from "@material-ui/core";
+import {Card} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {Link} from "react-router-dom";
