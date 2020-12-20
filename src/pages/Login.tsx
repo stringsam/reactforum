@@ -59,11 +59,6 @@ const Login: FC = () => {
             <b>{error}</b>
           </Typography>
         )}
-        <Typography variant="subtitle2" align="left" paragraph>
-          <Link>
-            <b>{texts[language]['login.forgotEmail']}</b>
-          </Link>
-        </Typography>
       </CardContent>
       <CardActions>
         <Button
