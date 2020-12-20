@@ -24,6 +24,8 @@ const useStyles = makeStyles(
   (theme) => ({
     root: {
       display: 'flex',
+      width: '70vw',
+      maxWidth: '700px',
     },
     details: {
       display: 'flex',
@@ -33,8 +35,8 @@ const useStyles = makeStyles(
       flex: '1 0 auto',
     },
     cover: {
-      height: 266,
-      width: 256,
+      height: 220,
+      width: 220,
       marginBottom: 10,
     },
     controls: {
@@ -108,73 +110,75 @@ const ProfileEdit: FC = () => {
   return (
     <Card className={classes.root}>
       <Grid container>
-        <CardMedia
-          className={classes.cover}
-          image={imageUrl || '/userDefault.png'}
-          title="Profile image preview"
-        />
-        <FileUploader
-          className={classes.details}
-          accept="image/*"
-          name="avatar"
-          randomizeFilename
-          storageRef={firebase.storage().ref('images')}
-          onUploadError={handleUploadError}
-          onUploadSuccess={handleUploadSuccess}
-        />
-      </Grid>
-      <Grid container>
-        <div className={classes.details}>
+        <Grid item xs={12} sm={6}>
+          <CardMedia
+            className={classes.cover}
+            image={imageUrl || '/userDefault.png'}
+            title="Profile image preview"
+          />
+          <FileUploader
+            className={classes.details}
+            accept="image/*"
+            name="avatar"
+            randomizeFilename
+            storageRef={firebase.storage().ref('images')}
+            onUploadError={handleUploadError}
+            onUploadSuccess={handleUploadSuccess}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} className={classes.details}>
           <CardContent className={classes.content}>
-            <Grid item xs={12}>
-              <TextField
-                label={texts[language]['profile.nick']}
-                value={nick}
-                onChange={(e) => setNick(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} className={classes.lastElement}>
-              <TextField
-                label={texts[language]['profile.phone']}
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </Grid>
-            <FormControl component="fieldset" className={classes.content}>
-              <FormLabel component="legend">
-                {texts[language]['profile.sex']}
-              </FormLabel>
-              <RadioGroup
-                aria-label={texts[language]['profile.sex']}
-                name="sex1"
-                value={sex}
-                onChange={handleChange}
-              >
-                <Grid container>
-                  <Grid item xs={6}>
-                    <FormControlLabel
-                      value="female"
-                      control={<Radio />}
-                      label={texts[language]['profile.female']}
-                    />
+            <Grid container>
+              <Grid item xs={12}>
+                <TextField
+                  label={texts[language]['profile.nick']}
+                  value={nick}
+                  onChange={(e) => setNick(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} className={classes.lastElement}>
+                <TextField
+                  label={texts[language]['profile.phone']}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </Grid>
+              <FormControl component="fieldset" className={classes.content}>
+                <FormLabel component="legend">
+                  {texts[language]['profile.sex']}
+                </FormLabel>
+                <RadioGroup
+                  aria-label={texts[language]['profile.sex']}
+                  name="sex1"
+                  value={sex}
+                  onChange={handleChange}
+                >
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <FormControlLabel
+                        value="female"
+                        control={<Radio />}
+                        label={texts[language]['profile.female']}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <FormControlLabel
+                        value="male"
+                        control={<Radio />}
+                        label={texts[language]['profile.male']}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <FormControlLabel
-                      value="male"
-                      control={<Radio />}
-                      label={texts[language]['profile.male']}
-                    />
-                  </Grid>
-                </Grid>
-              </RadioGroup>
-            </FormControl>
+                </RadioGroup>
+              </FormControl>
+            </Grid>
           </CardContent>
           <Grid item xs={12} className={classes.actions}>
             <Button color={'primary'} onClick={() => handleSubmit()}>
               {texts[language]['profile.save']}
             </Button>
           </Grid>
-        </div>
+        </Grid>
       </Grid>
     </Card>
   )
