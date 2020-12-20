@@ -82,7 +82,7 @@ const Discussion: FC = () => {
                             {texts[language]['discussion.reply']}
                         </Typography>
                         <TextField
-                            label='Description'
+                            label={texts[language]['discussion.description']}
                             name="description"
                             fullWidth
                             margin="normal"

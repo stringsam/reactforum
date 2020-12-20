@@ -19,6 +19,7 @@ const cs: typeof en = {
 
   'discussion.reply': 'Odpovědět',
   'discussion.submit': 'Přidat',
+  'discussion.description': 'Popis',
 
   'home.createThread': 'Přidat vlákno',
 

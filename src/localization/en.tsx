@@ -16,6 +16,7 @@ const en = {
 
   'discussion.reply': 'reply',
   'discussion.submit': 'Submit',
+  'discussion.description': 'Description',
 
   'home.createThread': 'Pridať vlákno',
 
