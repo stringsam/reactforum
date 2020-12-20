@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import {Grid} from "@material-ui/core";
 import {Thread as ThreadComponent} from "../components/Thread";
 import Card from "@material-ui/core/Card";
@@ -9,9 +9,11 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {threadsCollection, timestampNow, useLoggedInUser} from "../utils/firebase";
 import {Post, Thread} from "../utils/types";
+import {LocalizationContext} from "../localization";
 
 const Home: FC = () => {
     const [threads, setThreads] = useState<Thread[]>([]);
+    const { texts, language } = useContext(LocalizationContext);
 
     useEffect(() => {
         // Call .onSnapshot() to listen to changes
@@ -74,7 +76,7 @@ const Home: FC = () => {
             <Card>
                 <CardContent>
                     <Typography variant="h4" gutterBottom>
-                        Create thread
+                        {texts[language]['home.createThread']}
                     </Typography>
                     <TextField
                         label='Title'
@@ -102,7 +104,7 @@ const Home: FC = () => {
                         color="primary"
                         onClick={handleSubmit}
                     >
-                        Submit
+                        {texts[language]['discussion.submit']}
                     </Button>
                 </CardActions>
             </Card>

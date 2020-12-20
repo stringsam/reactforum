@@ -9,7 +9,7 @@ import {Thread as ThreadComponent} from "../components/Thread";
 const Profile: FC = () => {
     
     const [threads, setThread] = useState<Thread[]>([]);
-    
+
     const profileCtx = useContext(ProfileCtx)
 
     useEffect(() => {

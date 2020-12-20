@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 
 import './App.css';
-import {LocalizationCtx} from './localization'
+import { Localization, LocalizationContext, texts } from './localization';
 
 import { signOut, useDetailUser, useLoggedInUser } from './utils/firebase';
 import Container from '@material-ui/core/Container/Container';
@@ -105,7 +105,11 @@ const App: FC = () => {
   const userDetail = useDetailUser();
   userDetail.uid = user?.uid
 
-  const [localization, setLocalization] = useState<'cs' | 'en'>('cs');
+  const [language, setLanguage] = useState<Localization['language']>('en');
+  const toggleLanguage = useCallback(
+      () => setLanguage(prev => (prev === 'cs' ? 'en' : 'cs')),
+      [],
+  );
   const [profile, setProfile] = useState(userDetail);
   const classes = useStyles();
 
@@ -116,7 +120,7 @@ const App: FC = () => {
 
   return (
       <MuiThemeProvider theme={ourTheme}>
-        <LocalizationCtx.Provider value={{ localization, setLocalization }}>
+        <LocalizationContext.Provider value={{ texts, language }}>
           <ProfileCtx.Provider value={{profile, setProfile}}>
           <Router>
             <AppBar position="static">
@@ -141,17 +145,22 @@ const App: FC = () => {
                 </div>
                 {user === null && (
                 <Link to='/login'>
-                  <Button variant={"contained"} className={classes.menuButton} color="primary">Login</Button>
+                  <Button variant={"contained"} className={classes.menuButton} color="primary">{texts[language]['toolbar.login']}</Button>
                 </Link>
                 )}
                 {user && (
                 <>
                 <Link to='/profile'>
-                  <Button variant={"contained"} className={classes.menuButton} color="primary">Profile</Button>
+                  <Button variant={"contained"} className={classes.menuButton} color="primary">{texts[language]['toolbar.profile']}</Button>
                 </Link>
-                  <Button onClick={signOut} variant={"contained"} className={classes.menuButton} color="primary">Logout</Button>
+                  <Button onClick={signOut} variant={"contained"} className={classes.menuButton} color="primary">{texts[language]['toolbar.logout']}</Button>
                 </>
                 )}
+                <Button className={classes.menuButton} onClick={toggleLanguage}>
+                  {language === 'cs'
+                      ? texts[language]['toolbar.en']
+                      : texts[language]['toolbar.cs']}
+                </Button>
               </Toolbar>
             </AppBar>
 
@@ -175,7 +184,7 @@ const App: FC = () => {
             </main>
           </Router>
           </ProfileCtx.Provider>
-        </LocalizationCtx.Provider>
+        </LocalizationContext.Provider>
       </MuiThemeProvider>
 
       

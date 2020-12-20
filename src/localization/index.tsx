@@ -1,20 +1,16 @@
+import { createContext } from 'react';
 import cs from './cs';
 import en from './en';
-import {createContext} from "react";
 
-export const texts = {
-  cs,
-  en,
+export const texts = { cs, en };
+
+// By declaring `languages` as `keyof T` we can safely use the attribute to index said `T` later
+export type Localization = {
+  texts: typeof texts;
+  language: keyof typeof texts;
 };
 
-interface LocalizationCtxType {
-  localization: 'cs' | 'en';
-  setLocalization?: React.Dispatch<React.SetStateAction<'cs' | 'en'>>;
-}
-
-const defaultContext: LocalizationCtxType = {
-  localization: "en"
-};
-export const LocalizationCtx = createContext<LocalizationCtxType>(
-    defaultContext,
-);
+export const LocalizationContext = createContext<Localization>({
+  texts,
+  language: 'en',
+});

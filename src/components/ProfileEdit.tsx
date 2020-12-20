@@ -10,6 +10,8 @@ import { useHistory } from "react-router-dom";
 import firebase from "firebase";
 import FileUploader from "react-firebase-file-uploader";
 import { ProfileCtx } from "./ProfileCtx";
+import {LocalizationContext} from "../localization";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +45,8 @@ const ProfileEdit: FC = () => {
   const history = useHistory();
   useTheme();
 
-  const profileCtx = useContext(ProfileCtx)
+  const profileCtx = useContext(ProfileCtx);
+  const { texts, language } = useContext(LocalizationContext);
 
   const user = useLoggedInUser()
 
@@ -102,25 +105,25 @@ const ProfileEdit: FC = () => {
       <div className={classes.details}>
         <CardContent className={classes.content}>
             <TextField
-              label="Nickname"
+              label={texts[language]['profile.nick']}
               value={nick}
               onChange={e => setNick(e.target.value)}
             />
             <TextField
-                label="Phone"
+                label={texts[language]['profile.phone']}
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
             />
             <FormControl component="fieldset">
-                <FormLabel component="legend">Sex</FormLabel>
+                <FormLabel component="legend">{texts[language]['profile.sex']}</FormLabel>
                     <RadioGroup aria-label="sex" name="sex1" value={sex} onChange={handleChange}>
-                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="male" control={<Radio />} label="Male" />
+                        <FormControlLabel value="female" control={<Radio />} label={texts[language]['profile.female']} />
+                        <FormControlLabel value="male" control={<Radio />} label={texts[language]['profile.male']} />
                     </RadioGroup>
             </FormControl>
         </CardContent>
         <CardActionArea onClick={() =>handleSubmit()}>
-          Save
+            {texts[language]['profile.save']}
         </CardActionArea>
       </div>
     </Card>
