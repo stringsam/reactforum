@@ -25,7 +25,7 @@ const cs: typeof en = {
   'profile.edit': 'Upraviť profil',
   'profile.male': 'Muž',
   'profile.female': 'Žena',
-  'profile.nick': 'Nick',
+  'profile.nick': 'Přezdívka',
   'profile.phone': 'Telefón',
   'profile.sex': 'Pohlavie',
   'profile.save': 'Uložit',

@@ -136,17 +136,17 @@ const ProfileEdit: FC = () => {
               <RadioGroup aria-label={texts[language]['profile.sex']} name="sex1" value={sex} onChange={handleChange}>
                 <Grid container>
                   <Grid item xs={6}>
-                    <FormControlLabel value="female" control={<Radio/>} label="Female"/>
+                    <FormControlLabel value="female" control={<Radio/>} label={texts[language]['profile.female']} />
                   </Grid>
                   <Grid item xs={6}>
-                    <FormControlLabel value="male" control={<Radio/>} label="Male"/>
+                    <FormControlLabel value="male" control={<Radio/>} label={texts[language]['profile.male']} />
                   </Grid>
                 </Grid>
               </RadioGroup>
             </FormControl>
           </CardContent>
           <Grid item xs={12} className={classes.actions}>
-            <Button color={"primary"} onClick={() => handleSubmit()}>Save</Button>
+            <Button color={"primary"} onClick={() => handleSubmit()}>{texts[language]['profile.save']}</Button>
           </Grid>
         </div>
       </Grid>
