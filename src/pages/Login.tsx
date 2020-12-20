@@ -37,7 +37,7 @@ const Login: FC = () => {
           autoComplete='email'
           margin='normal'
           variant='outlined'
-          value={user}
+          defaultValue={user}
           onChange={e => setUser(e.target.value)}
         />
         <TextField
@@ -47,7 +47,7 @@ const Login: FC = () => {
           fullWidth
           margin='normal'
           variant='outlined'
-          value={password}
+          defaultValue={password}
           onChange={e => setPassword(e.target.value)}
         />
         {error && (

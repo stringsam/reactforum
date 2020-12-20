@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     stars: { marginBottom: theme.spacing(2) },
     link: { textDecoration: 'none' },
-}));
+}), {index: 1});
 
 export const Post: FC<Props> = ({post, threadId}) => {
     const classes = useStyles();

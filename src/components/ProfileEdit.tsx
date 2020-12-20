@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     height: 38,
     width: 38
   }
-}));
+}), {index: 1});
 
 const ProfileEdit: FC = () => {
   const classes = useStyles();

@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
-}));
+}), {index: 1});
 
 const App: FC = () => {
 
@@ -111,7 +111,7 @@ const App: FC = () => {
 
   useEffect(() => {
     setProfile(userDetail)
-  }, [user])
+  }, [user, userDetail])
 
 
   return (
