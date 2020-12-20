@@ -1,10 +1,8 @@
-import React, { FC } from "react";
-import ProfileEdit from "../components/ProfileEdit";
+import React, { FC } from 'react'
+import ProfileEdit from '../components/ProfileEdit'
 
 const Profile: FC = () => {
-    return(
-        <ProfileEdit />
-    )
-} 
+  return <ProfileEdit />
+}
 
 export default Profile

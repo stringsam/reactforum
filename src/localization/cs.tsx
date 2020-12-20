@@ -1,4 +1,4 @@
-import en from "./en";
+import en from './en'
 
 // Thanks to typescript we can make sure that our localization texts in various languages have same keys
 const cs: typeof en = {
@@ -33,6 +33,6 @@ const cs: typeof en = {
 
   'thread.title': 'Název vlákna',
 
-  'format': 'cs-CZ'
-};
-export default cs;
+  format: 'cs-CZ',
+}
+export default cs

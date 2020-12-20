@@ -30,7 +30,6 @@ const en = {
 
   'thread.title': 'Title',
 
-  'format': 'en-EN'
-
-};
-export default en;
+  format: 'en-EN',
+}
+export default en
