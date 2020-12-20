@@ -17,17 +17,17 @@ const cs: typeof en = {
   'toolbar.logout': 'Odhlášení',
   'toolbar.profile': 'Profil',
 
-  'discussion.reply': 'Odpovedať',
-  'discussion.submit': 'Pridať',
+  'discussion.reply': 'Odpovědět',
+  'discussion.submit': 'Přidat',
 
-  'home.createThread': 'Pridať vlákno',
+  'home.createThread': 'Přidat vlákno',
 
-  'profile.edit': 'Upraviť profil',
+  'profile.edit': 'Upravit profil',
   'profile.male': 'Muž',
   'profile.female': 'Žena',
   'profile.nick': 'Přezdívka',
-  'profile.phone': 'Telefón',
-  'profile.sex': 'Pohlavie',
+  'profile.phone': 'Telefon',
+  'profile.sex': 'Pohlaví',
   'profile.save': 'Uložit',
 
   'thread.title': 'Název vlákna',
