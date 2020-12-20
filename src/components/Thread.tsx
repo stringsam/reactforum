@@ -1,5 +1,5 @@
 import {Thread as ThreadType} from '../utils/types';
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import {Card} from "@material-ui/core";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +8,7 @@ import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import {threadsCollection, useLoggedInUser} from "../utils/firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {LocalizationContext} from "../localization";
 
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 }
 
 export const Thread: FC<Props> = ({thread}) => {
+    const { texts, language } = useContext(LocalizationContext);
     const loggedUser = useLoggedInUser();
     return (
         <Card>
@@ -25,7 +27,7 @@ export const Thread: FC<Props> = ({thread}) => {
 
             <Link to={`/discussion/${thread.id}`} color="primary">{thread.title && <Typography variant={"h6"}>{thread.title}</Typography>}</Link>
                 <Typography variant="subtitle2" color="textSecondary">
-                    {thread.date.toDate().toDateString()}
+                    {thread.date.toDate().toLocaleDateString(texts[language]['format'])}
                 </Typography>
             </CardContent>
             <CardActions>

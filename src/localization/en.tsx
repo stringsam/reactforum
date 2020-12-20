@@ -6,6 +6,7 @@ const en = {
   'login.forgotEmail': 'Forgot email?',
   'login.createAccount': 'Create Account',
   'login.login': 'Log In',
+  'login.search': 'Search',
 
   'toolbar.en': 'EN',
   'toolbar.cs': 'CZ',
@@ -25,6 +26,10 @@ const en = {
   'profile.phone': 'Phone',
   'profile.sex': 'Sex',
   'profile.save': 'Save',
+
+  'thread.title': 'Title',
+
+  'format': 'en-EN'
 
 };
 export default en;
