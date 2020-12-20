@@ -24,7 +24,6 @@ const Discussion: FC = () => {
 
 
     useEffect(() => {
-
         const unsubscribe = threadsCollection.doc(ref).collection('posts').orderBy('date').onSnapshot(
             snapshot => {
                 // Access .docs property of snapshot
@@ -37,7 +36,7 @@ const Discussion: FC = () => {
                     }
                 }));
             },
-            err => console.log(err),
+            err => console.error(err),
         );
 
         // Call unsubscribe in the cleanup of the hook
@@ -65,7 +64,7 @@ const Discussion: FC = () => {
             });
             // After awaiting previous call we can redirect back to /about page
         } catch (err) {
-            console.log(err.what)
+            console.error(err.what)
         }
     };
 

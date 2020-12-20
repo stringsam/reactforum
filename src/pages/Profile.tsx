@@ -26,7 +26,7 @@ const Profile: FC = () => {
                     }
                 }));
             },
-            err => console.log(err),
+            err => console.error(err),
         );
 
         // Call unsubscribe in the cleanup of the hook

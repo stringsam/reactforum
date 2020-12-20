@@ -93,21 +93,18 @@ const ProfileEdit: FC = () => {
       history.push('/profile')
       // After awaiting previous call we can redirect back to /about page
     } catch (err) {
-      console.log(err.what)
+      console.error(err.what)
     }
   }
-
-  console.log(profileCtx.profile)
 
   return (
     <Card className={classes.root}>
       <Grid container>
-        {imageUrl && <CardMedia
+        <CardMedia
             className={classes.cover}
             image={imageUrl || '/userDefault.png'}
             title="Profile image preview"
-        />}
-
+        />
         <FileUploader className={classes.details}
                       accept="image/*"
                       name="avatar"
