@@ -79,7 +79,7 @@ const Home: FC = () => {
                         {texts[language]['home.createThread']}
                     </Typography>
                     <TextField
-                        label='Title'
+                        label={texts[language]['thread.title']}
                         name="title"
                         fullWidth
                         margin="normal"

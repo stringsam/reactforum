@@ -135,7 +135,7 @@ const App: FC = () => {
                     <SearchIcon />
                   </div>
                   <InputBase
-                      placeholder="Search…"
+                      placeholder={texts[language]['login.search']}
                       classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,

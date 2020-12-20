@@ -9,11 +9,12 @@ const cs: typeof en = {
   'login.forgotEmail': 'Zapomněli jste e-mail?',
   'login.createAccount': 'Vytvořit účet',
   'login.login': 'Přihlásit',
+  'login.search': 'Hledat',
 
   'toolbar.en': 'EN',
   'toolbar.cs': 'CZ',
-  'toolbar.login': 'Login',
-  'toolbar.logout': 'Logout',
+  'toolbar.login': 'Přihlášení',
+  'toolbar.logout': 'Odhlášení',
   'toolbar.profile': 'Profil',
 
   'discussion.reply': 'Odpovedať',
@@ -28,5 +29,9 @@ const cs: typeof en = {
   'profile.phone': 'Telefón',
   'profile.sex': 'Pohlavie',
   'profile.save': 'Uložit',
+
+  'thread.title': 'Název vlákna',
+
+  'format': 'cs-CZ'
 };
 export default cs;

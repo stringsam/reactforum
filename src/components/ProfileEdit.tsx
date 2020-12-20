@@ -135,8 +135,8 @@ const ProfileEdit: FC = () => {
               />
             </Grid>
             <FormControl component="fieldset" className={classes.content}>
-              <FormLabel component="legend">Sex</FormLabel>
-              <RadioGroup aria-label="sex" name="sex1" value={sex} onChange={handleChange}>
+              <FormLabel component="legend">{texts[language]['profile.sex']}</FormLabel>
+              <RadioGroup aria-label={texts[language]['profile.sex']} name="sex1" value={sex} onChange={handleChange}>
                 <Grid container>
                   <Grid item xs={6}>
                     <FormControlLabel value="female" control={<Radio/>} label="Female"/>

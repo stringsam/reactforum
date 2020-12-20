@@ -32,7 +32,7 @@ const Login: FC = () => {
         </Typography>
         <Typography variant='subtitle1'>{texts[language]['login.subtitle']}</Typography>
         <TextField
-          label='Email'
+          label={texts[language]['login.email']}
           type='email'
           name='email'
           fullWidth
@@ -43,7 +43,7 @@ const Login: FC = () => {
           onChange={e => setUser(e.target.value)}
         />
         <TextField
-          label='Password'
+          label={texts[language]['login.password']}
           type='password'
           name='password'
           fullWidth
