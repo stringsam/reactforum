@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, {FC, useContext, useState} from 'react';
 import { Redirect } from 'react-router-dom';
 
 import Card from '@material-ui/core/Card';
@@ -9,10 +9,12 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import { signIn, signUp, useLoggedInUser } from '../utils/firebase';
+import {LocalizationContext} from "../localization";
 
 const Login: FC = () => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const { texts, language } = useContext(LocalizationContext);
 
   const [error, setError] = useState<string>();
 
@@ -26,9 +28,9 @@ const Login: FC = () => {
     <Card>
       <CardContent>
         <Typography variant='h5' component='h1'>
-          Sign in
+          {texts[language]['login.title']}
         </Typography>
-        <Typography variant='subtitle1'>Use your Account</Typography>
+        <Typography variant='subtitle1'>{texts[language]['login.subtitle']}</Typography>
         <TextField
           label='Email'
           type='email'
@@ -57,12 +59,8 @@ const Login: FC = () => {
         )}
         <Typography variant='subtitle2' align='left' paragraph>
           <Link>
-            <b>Forgot email?</b>
+            <b>{texts[language]['login.forgotEmail']}</b>
           </Link>
-        </Typography>
-        <Typography variant='subtitle2' align='left' paragraph>
-          Not your device? Use Guest mode to sign in privately.{' '}
-          <Link>Learn more</Link>
         </Typography>
       </CardContent>
       <CardActions>
@@ -79,7 +77,7 @@ const Login: FC = () => {
             }
           }}
         >
-          Create account
+          {texts[language]['login.createAccount']}
         </Button>
         <Button
           variant='text'
@@ -90,7 +88,7 @@ const Login: FC = () => {
             signIn(user, password).catch(err => setError(err.message))
           }
         >
-          Login
+          {texts[language]['login.login']}
         </Button>
       </CardActions>
     </Card>

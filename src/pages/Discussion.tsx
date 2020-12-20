@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react"
+import React, {FC, useContext, useEffect, useState} from "react"
 import {Grid} from "@material-ui/core";
 import {threadsCollection, timestampNow, useLoggedInUser} from "../utils/firebase";
 import {Post as PostComponent} from '../components/Post';
@@ -10,9 +10,13 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {Post} from '../utils/types';
 import {useParams} from "react-router-dom";
+import { LocalizationContext } from '../localization';
+
 
 
 const Discussion: FC = () => {
+
+    const { texts, language } = useContext(LocalizationContext);
 
     const [posts, setPost] = useState<Post[] | undefined>([]);
 
@@ -76,7 +80,7 @@ const Discussion: FC = () => {
                 <Card>
                     <CardContent>
                         <Typography variant="h4" gutterBottom>
-                            Reply to discussion
+                            {texts[language]['discussion.reply']}
                         </Typography>
                         <TextField
                             label='Description'
@@ -95,7 +99,7 @@ const Discussion: FC = () => {
                             color="primary"
                             onClick={handleSubmit}
                         >
-                            Submit
+                            {texts[language]['discussion.submit']}
                         </Button>
                     </CardActions>
                 </Card>

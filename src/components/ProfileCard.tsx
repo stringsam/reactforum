@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import {CardActions } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { ProfileCtx } from "./ProfileCtx";
+import {LocalizationContext} from "../localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
 const ProfileCard: FC = () => {
   const classes = useStyles();
   useTheme();
-  const profileCtx = useContext(ProfileCtx)
+  const profileCtx = useContext(ProfileCtx);
+  const { texts, language } = useContext(LocalizationContext);
 
   return (
     <Card className={classes.root}>
@@ -57,12 +59,12 @@ const ProfileCard: FC = () => {
             {profileCtx.profile?.phoneNumber}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {profileCtx.profile?.sex ? "Female" : "Male"}
+            {profileCtx.profile?.sex ? texts[language]['profile.female'] : texts[language]['profile.male']}
           </Typography>
         </CardContent>
         <CardActions>
           <Link to='/profileEdit'>
-              Edit profile
+            {texts[language]['profile.edit']}
           </Link>
         </CardActions>
       </div>
