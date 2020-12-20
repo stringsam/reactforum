@@ -1,4 +1,4 @@
-import en from "./en";
+import en from './en'
 
 // Thanks to typescript we can make sure that our localization texts in various languages have same keys
 const cs: typeof en = {
@@ -17,21 +17,22 @@ const cs: typeof en = {
   'toolbar.logout': 'Odhlášení',
   'toolbar.profile': 'Profil',
 
-  'discussion.reply': 'Odpovedať',
-  'discussion.submit': 'Pridať',
+  'discussion.reply': 'Odpovědět',
+  'discussion.submit': 'Přidat',
+  'discussion.description': 'Popis',
 
-  'home.createThread': 'Pridať vlákno',
+  'home.createThread': 'Přidat vlákno',
 
-  'profile.edit': 'Upraviť profil',
+  'profile.edit': 'Upravit profil',
   'profile.male': 'Muž',
   'profile.female': 'Žena',
-  'profile.nick': 'Nick',
-  'profile.phone': 'Telefón',
-  'profile.sex': 'Pohlavie',
+  'profile.nick': 'Přezdívka',
+  'profile.phone': 'Telefon',
+  'profile.sex': 'Pohlaví',
   'profile.save': 'Uložit',
 
   'thread.title': 'Název vlákna',
 
-  'format': 'cs-CZ'
-};
-export default cs;
+  format: 'cs-CZ',
+}
+export default cs

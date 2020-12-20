@@ -16,6 +16,7 @@ const en = {
 
   'discussion.reply': 'reply',
   'discussion.submit': 'Submit',
+  'discussion.description': 'Description',
 
   'home.createThread': 'Pridať vlákno',
 
@@ -29,7 +30,6 @@ const en = {
 
   'thread.title': 'Title',
 
-  'format': 'en-EN'
-
-};
-export default en;
+  format: 'en-EN',
+}
+export default en

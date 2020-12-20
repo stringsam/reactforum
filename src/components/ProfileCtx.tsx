@@ -2,14 +2,12 @@ import { createContext } from 'react'
 import { UserDetail } from '../utils/types'
 
 interface ProfileCtxType {
-    profile?: UserDetail,
-    setProfile?: React.Dispatch<React.SetStateAction<UserDetail>>
+  profile?: UserDetail
+  setProfile?: React.Dispatch<React.SetStateAction<UserDetail>>
 }
 
 const defaultContext: ProfileCtxType = {
-    profile: {}
-  };
+  profile: {},
+}
 
-export const ProfileCtx = createContext<ProfileCtxType>(
-    defaultContext 
-)
+export const ProfileCtx = createContext<ProfileCtxType>(defaultContext)
