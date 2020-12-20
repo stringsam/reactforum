@@ -111,7 +111,7 @@ const App: FC = () => {
 
   useEffect(() => {
     setProfile(userDetail)
-  }, [user, userDetail])
+  }, [user])
 
 
   return (
