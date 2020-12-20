@@ -10,20 +10,23 @@ import { useHistory } from "react-router-dom";
 import firebase from "firebase";
 import FileUploader from "react-firebase-file-uploader";
 import { ProfileCtx } from "./ProfileCtx";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
   details: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   content: {
-    flex: "1 0 auto"
+    flex: "1 0 auto",
   },
   cover: {
+    height: 266,
     width: 256
   },
   controls: {
@@ -35,7 +38,13 @@ const useStyles = makeStyles((theme) => ({
   playIcon: {
     height: 38,
     width: 38
-  }
+  },
+    actions: {
+      textAlign: "center"
+    },
+    lastElement: {
+      marginBottom: 20
+    }
 }), {index: 1});
 
 const ProfileEdit: FC = () => {
@@ -84,11 +93,13 @@ const ProfileEdit: FC = () => {
 
   return (
     <Card className={classes.root}>
+        <Grid container>
       {imageUrl && <CardMedia
             className={classes.cover}
             image={imageUrl}
             title="Profile image preview"
           /> }
+
          <FileUploader className={classes.details}
             accept="image/*"
             name="avatar"
@@ -97,30 +108,43 @@ const ProfileEdit: FC = () => {
             onUploadError={handleUploadError}
             onUploadSuccess={handleUploadSuccess}
           />
-      <div className={classes.details}>
+        </Grid>
+        <Grid container>
+        <div className={classes.details}>
         <CardContent className={classes.content}>
+            <Grid item xs={12}>
             <TextField
               label="Nickname"
               value={nick}
               onChange={e => setNick(e.target.value)}
             />
+            </Grid>
+            <Grid item xs={12} className={classes.lastElement}>
             <TextField
                 label="Phone"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
             />
+            </Grid>
             <FormControl component="fieldset" className={classes.content}>
                 <FormLabel component="legend">Sex</FormLabel>
                     <RadioGroup aria-label="sex" name="sex1" value={sex} onChange={handleChange}>
+                        <Grid container>
+                        <Grid item xs={6}>
                         <FormControlLabel value="female" control={<Radio />} label="Female" />
+                        </Grid>
+                        <Grid item xs={6}>
                         <FormControlLabel value="male" control={<Radio />} label="Male" />
+                        </Grid>
+                        </Grid>
                     </RadioGroup>
             </FormControl>
         </CardContent>
-        <CardActionArea onClick={() =>handleSubmit()}>
-          Save
-        </CardActionArea>
+        <Grid item xs={12} className={classes.actions}>
+            <Button color={"primary"} onClick={() =>handleSubmit()}>Save</Button>
+        </Grid>
       </div>
+        </Grid>
     </Card>
   );
 };
