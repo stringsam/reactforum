@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flex: "1 0 auto"
   },
   cover: {
-    width: 151
+    width: 256
   },
   controls: {
     display: "flex",
@@ -84,13 +84,12 @@ const ProfileEdit: FC = () => {
 
   return (
     <Card className={classes.root}>
-      {imageUrl
-        ? <CardMedia
+      {imageUrl && <CardMedia
             className={classes.cover}
             image={imageUrl}
             title="Profile image preview"
-          />
-        : <FileUploader
+          /> }
+         <FileUploader className={classes.details}
             accept="image/*"
             name="avatar"
             randomizeFilename
@@ -98,7 +97,6 @@ const ProfileEdit: FC = () => {
             onUploadError={handleUploadError}
             onUploadSuccess={handleUploadSuccess}
           />
-      }
       <div className={classes.details}>
         <CardContent className={classes.content}>
             <TextField
@@ -111,7 +109,7 @@ const ProfileEdit: FC = () => {
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
             />
-            <FormControl component="fieldset">
+            <FormControl component="fieldset" className={classes.content}>
                 <FormLabel component="legend">Sex</FormLabel>
                     <RadioGroup aria-label="sex" name="sex1" value={sex} onChange={handleChange}>
                         <FormControlLabel value="female" control={<Radio />} label="Female" />
