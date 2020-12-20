@@ -45,7 +45,7 @@ const ProfileCard: FC = () => {
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
-        image={profileCtx.profile?.photoUrl}
+        image={profileCtx.profile?.photoUrl || '/userDefault.png'}
       />
       <div className={classes.details}>
         <CardContent className={classes.content}>

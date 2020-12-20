@@ -104,7 +104,7 @@ const ProfileEdit: FC = () => {
       <Grid container>
         {imageUrl && <CardMedia
             className={classes.cover}
-            image={imageUrl}
+            image={imageUrl || '/userDefault.png'}
             title="Profile image preview"
         />}
 
